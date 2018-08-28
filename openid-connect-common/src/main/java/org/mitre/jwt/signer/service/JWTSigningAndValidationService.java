@@ -77,7 +77,6 @@ public interface JWTSigningAndValidationService {
 
 	public String getDefaultSignerKeyId();
 
-	/**
-	 * TODO: method to sign a jwt using a specified algorithm and a key id
-	 */
+	public void signJwt(SignedJWT jwt, String keyId);
+
 }
