@@ -285,6 +285,7 @@ public class DiscoveryEndpoint {
 		    op_tos_uri
 		        OPTIONAL. URL that the OpenID Provider provides to the person registering the Client to read about OpenID Provider's terms of service.
 		        The registration process SHOULD display this URL to the person registering the Client if it is given.
+
 		 */
 		String baseUrl = config.getIssuer();
 
@@ -312,7 +313,6 @@ public class DiscoveryEndpoint {
 		m.put("token_endpoint", baseUrl + "token");
 		m.put("userinfo_endpoint", baseUrl + UserInfoEndpoint.URL);
 		//check_session_iframe
-		m.put("end_session_endpoint", baseUrl + EndSessionEndpoint.URL);
 		m.put("jwks_uri", baseUrl + JWKSetPublishingEndpoint.URL);
 		m.put("registration_endpoint", baseUrl + DynamicClientRegistrationEndpoint.URL);
 		m.put("scopes_supported", scopeService.toStrings(scopeService.getUnrestricted())); // these are the scopes that you can dynamically register for, which is what matters for discovery

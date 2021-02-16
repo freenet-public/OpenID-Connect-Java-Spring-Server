@@ -73,7 +73,7 @@ public class TestBlacklistAwareRedirectResolver {
 		when(blacklistService.isBlacklisted(blacklistedUri)).thenReturn(true);
 
 		when(client.getAuthorizedGrantTypes()).thenReturn(ImmutableSet.of("authorization_code"));
-		when(client.getRegisteredRedirectUri()).thenReturn(ImmutableSet.of(goodUri, blacklistedUri));
+		when(client.getRegisteredRedirectUri()).thenReturn(ImmutableSet.of(goodUri, blacklistedUri, pathUri));
 
 		when(config.isHeartMode()).thenReturn(false);
 	}
@@ -86,9 +86,9 @@ public class TestBlacklistAwareRedirectResolver {
 		String res1 = resolver.resolveRedirect(goodUri, client);
 
 		assertThat(res1, is(equalTo(goodUri)));
-		
+
 		// set the resolver to non-strict and test the path-based redirect resolution
-		
+
 		resolver.setStrictMatch(false);
 
 		String res2 = resolver.resolveRedirect(pathUri, client);
@@ -126,11 +126,6 @@ public class TestBlacklistAwareRedirectResolver {
 
 		// set the resolver to non-strict match mode
 		resolver.setStrictMatch(false);
-		
-		// this is not an exact match (but that's OK)
-		boolean res1 = resolver.redirectMatches(pathUri, goodUri);
-
-		assertThat(res1, is(true));
 
 		// this is an exact match
 		boolean res2 = resolver.redirectMatches(goodUri, goodUri);

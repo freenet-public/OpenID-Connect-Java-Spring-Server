@@ -257,6 +257,24 @@ public class DefaultJWTSigningAndValidationService implements JWTSigningAndValid
 	}
 
 	@Override
+	public void signJwt(SignedJWT jwt, String keyId) {
+
+		JWSSigner signer = signers.get(keyId);
+
+		if (signer == null) {
+			//If we can't find an signer that matches, we can't sign
+			logger.error("No matching key found for keyId=" + keyId);
+			return;
+		}
+
+		try {
+			jwt.sign(signer);
+		} catch (JOSEException e) {
+			logger.error("Failed to sign JWT, error was: ", e);
+		}
+	}
+
+	@Override
 	public boolean validateSignature(SignedJWT jwt) {
 
 		for (JWSVerifier verifier : verifiers.values()) {

@@ -52,6 +52,7 @@ public class AuthenticationTimeStamper extends SavedRequestAwareAuthenticationSu
 
 	public static final String AUTH_TIMESTAMP = "AUTH_TIMESTAMP";
 
+
 	/**
 	 * Set the timestamp on the session to mark when the authentication happened,
 	 * useful for calculating authentication age. This gets stored in the sesion
